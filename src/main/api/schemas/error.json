@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Error",
+  "description": "An error object",
+  "properties": {
+    "status": {
+      "type": "integer",
+      "maximum": 599,
+      "minimum": 100,
+      "title": "HTTP Status code",
+      "description": "The status code is sent",
+      "default": 400,
+      "enum": [
+        400,
+        404,
+        405,
+        408,
+        415,
+        500
+      ]
+    },
+    "code": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Error Code",
+      "description": "User or system error, often used to denote blame",
+      "default": "USR",
+      "enum": [
+        "USR",
+        "SYS"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Message",
+      "description": "A human readable explanation of the fault"
+    },
+    "transaction_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "status",
+    "code",
+    "message"
+  ]
+}

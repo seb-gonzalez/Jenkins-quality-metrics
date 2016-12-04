@@ -1,0 +1,60 @@
+#%RAML 0.8
+title: Addison Lee Dnb Lookup API
+version: v1
+baseUri: https://mocksvc.mulesoft.com/mocks/207007d0-f353-483e-9129-f616354b223d/mocks/25e22a67-9d79-40b1-85c5-7029ca1b05d9
+traits: !include common/traits.raml
+
+
+
+/organizations:
+  description: Get a list of companies matching a search term
+  get:
+    description: |
+      This method retrieves an array of companies given a search term -query parameter-
+    is: [common_errors]
+    queryParameters:
+      name:
+        required: true
+        description: |
+          Search term, in this example the name of the company or partial name of the company
+        displayName: query
+        minLength: 3
+        type: string        
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schemas/companies.json
+            example: !include examples/companies.json
+      
+      400:
+        body:
+          application/json:
+            schema: !include schemas/error.json
+            example: !include examples/common_400.example
+      404:
+        body:
+          application/json:
+            schema: !include schemas/error.json
+            example: !include examples/common_404.example
+      405:
+        body:
+          application/json:
+            schema: !include schemas/error.json
+            example: !include examples/common_405.example
+      408:
+        body:
+          application/json:
+            schema: !include schemas/error.json
+            example: !include examples/common_408.example
+      415:
+        body:
+          application/json:
+            schema: !include schemas/error.json
+            example: !include examples/common_415.example
+      500:
+        body:
+          application/json:
+            schema: !include schemas/error.json
+            example: !include examples/common_500.example         
+

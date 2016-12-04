@@ -1,0 +1,6 @@
+{
+  "status": 405,
+  "code": "USR",
+  "message": "Invalid HTTP method",
+  "transaction_id": "ABC123"
+}

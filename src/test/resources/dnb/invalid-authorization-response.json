@@ -1,0 +1,15 @@
+{
+  "FindCompanyResponse": {
+    "@ServiceVersionNumber": "6.3",
+    "TransactionDetail": {
+      "ApplicationTransactionID": "REST",
+      "ServiceTransactionID": "Id-470a1a58f01de10092723f00c6138774",
+      "TransactionTimestamp": "2016-11-02T11:46:15"
+    },
+    "TransactionResult": {
+      "SeverityText": "Error",
+      "ResultID": "SC001",
+      "ResultText": "Your user credentials are invalid. Please contact your D&B Representative or your local Customer Service Center."
+    }
+  }
+}

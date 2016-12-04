@@ -1,0 +1,35 @@
+- secured:
+    usage: Apply this to any method that needs to be secured
+    description: All requests that require api key
+    headers:
+      Authorization:
+        description: The authentication details to use the Addison Lee Dnb Lookup API. The client id and client secret should be passed as follows for all endpoints in the following format 
+        type: string
+        example: "AL ABC1234567899:XYZ9876564321"
+        required: true
+- common_errors:
+    responses:
+      400:
+        body:
+          application/json:
+            example: !include /examples/common_400.example
+      404:
+        body:
+          application/json:
+            example: !include /examples/common_404.example
+      405:
+        body:
+          application/json:
+            example: !include /examples/common_405.example
+      408:
+        body:
+          application/json:
+            example: !include /examples/common_408.example
+      415:
+        body:
+          application/json:
+            example: !include /examples/common_415.example
+      500:
+        body:
+          application/json:
+            example: !include /examples/common_500.example

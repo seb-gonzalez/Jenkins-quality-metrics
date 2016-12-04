@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "title": "Companies",
+  "description": "A list of companies returned from D&B",
+  "items": {
+    "type": "object",
+    "title": "Company",
+    "description": "A company object",
+    "properties": {
+      "address": {
+        "type": "string",
+        "title": "Business Address",
+        "description": "Registered postal address of the company"
+      },
+      "duns": {
+        "type": "string",
+        "title": "D-U-N-S Number",
+        "description": "A unique nine digit identification number",
+        "minLength": 9,
+        "maxLength": 9
+      },
+      "name": {
+        "type": "string",
+        "title": "Company Name",
+        "description": "The offical name of the company"
+      },
+      "town": {
+        "type": "string",
+        "title": "Town",
+        "description": "The registered town of the company"
+      },
+      "postcode": {
+        "type": "string",
+        "title": "Postcode",
+        "description": "The registered postal code of the company"
+      },
+      "telephone": {
+        "type": "string",
+        "title": "Telephone",
+        "description": "The registered phone number of the company"
+      }
+    },
+    "required": [
+      "address",
+      "duns",
+      "name",
+      "town",
+      "postcode"
+    ]
+  }
+}

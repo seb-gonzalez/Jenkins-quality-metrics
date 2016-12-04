@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:mock="http://www.mulesoft.org/schema/mule/mock" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/mock http://www.mulesoft.org/schema/mule/mock/current/mule-mock.xsd">
+	<munit:config name="munit" doc:name="MUnit configuration" />
+	<spring:beans>
+		<spring:import resource="classpath:quote-credentials.xml" />
+		<spring:import resource="classpath:global.xml" />
+		<spring:import resource="classpath:company-search.xml" />
+		<spring:import resource="classpath:error-handler.xml" />
+	</spring:beans>
+	<munit:test name="cache-Test-Expires" description="Test">
+        <mock:throw-an exception-ref="#[new org.mule.module.apikit.exception.InvalidHeaderException(getResource('dnb/invalid-authorization-response.json').asString())]" whenCalling=".*:.*" doc:name="Throw an Exception Search Term Request">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Search Term Request']"/>
+            </mock:with-attributes>
+        </mock:throw-an>
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Byte Array to Object">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Byte Array to Object']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('dnb/invalid-authorization-response.json').asString()]"/>
+        </mock:when>
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Request_api_reconnection_HTTP ">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Request_Dnb_API_Reconnection_HTTP']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#['']"/>
+        </mock:when>
+
+		<munit:set payload="#['']" doc:name="Set Message">
+            <munit:inbound-properties>
+                <munit:inbound-property key="'http.query.params'.name" value="'company_name'"/>
+            </munit:inbound-properties>
+		</munit:set>
+		<flow-ref name="CompanySearch" doc:name="CompanySearch" />
+        <munit:set payload="#['']" doc:name="Set Message">
+            <munit:inbound-properties>
+                <munit:inbound-property key="'http.query.params'.name" value="'company_name'"/>
+            </munit:inbound-properties>
+            <munit:outbound-properties>
+                <munit:outbound-property key="flowVars.token" value="'nothing'"/>
+            </munit:outbound-properties>
+        </munit:set>
+        <flow-ref name="CompanySearch" doc:name="CompanySearch"/>
+        <mock:verify-call messageProcessor=".*:.*" times="2" doc:name="Verify Call Credentials Request">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Credentials Request']"/>
+            </mock:with-attributes>
+        </mock:verify-call>
+	</munit:test>
+</mule>

@@ -1,0 +1,6 @@
+{
+  "status": 404,
+  "code": "USR",
+  "message": "Invalid or unknown endpoint URI",
+  "transaction_id": "ABC123"
+}

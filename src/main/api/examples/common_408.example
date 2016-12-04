@@ -1,0 +1,6 @@
+{
+  "status": 408,
+  "code": "SYS",
+  "message": "API cannot retrieve an expired value from the cache",
+  "transaction_id": "ABC123"
+}

@@ -1,0 +1,6 @@
+{
+  "status": 500,
+  "code": "SYS",
+  "message": "API exceeded specified timeout",
+  "transaction_id": "ABC123"
+}
